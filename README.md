@@ -1,97 +1,116 @@
-This is a new [**React Native**](https://reactnative.dev) project, bootstrapped using [`@react-native-community/cli`](https://github.com/react-native-community/cli).
+### 📱 Contact Favourites App
 
-# Getting Started
+تطبيق React Native لعرض جهات الاتصال، وإمكانية إضافة أي جهة إلى قائمة المفضلة مع رسالة مخصصة. يدعم حفظ البيانات بعد غلق التطبيق ويستخدم TypeScript و Redux Toolkit و Formik.
 
-> **Note**: Make sure you have completed the [Set Up Your Environment](https://reactnative.dev/docs/set-up-your-environment) guide before proceeding.
+---
 
-## Step 1: Start Metro
+## 🚀 الميزات
 
-First, you will need to run **Metro**, the JavaScript build tool for React Native.
+- عرض قائمة جهات الاتصال من الهاتف.
+- تحديد جهة اتصال كمفضلة برسالة شخصية.
+- حفظ البيانات محليًا باستخدام `redux-persist`.
+- التحقق من الجنس تلقائيًا باستخدام [Genderize API](https://genderize.io/).
+- التحقق من صحة الرسائل باستخدام `Formik` و `Yup`.
+- دعم تقصير الرسائل الطويلة مع خيار Show More.
 
-To start the Metro dev server, run the following command from the root of your React Native project:
+---
 
-```sh
-# Using npm
-npm start
+## 🧱 البنية التقنية
 
-# OR using Yarn
-yarn start
+- **React Native (TypeScript)**
+- **Redux Toolkit + Persist**
+- **Formik + Yup**
+- **React Native Contacts**
+- **Genderize API**
+
+---
+
+## 📦 التثبيت
+
+```bash
+# 1. إنشاء المشروع
+npx react-native init ContactFavouritesApp --template react-native-template-typescript
+cd ContactFavouritesApp
+
+# 2. تثبيت الحزم الأساسية
+npm install @reduxjs/toolkit react-redux redux-persist @react-native-async-storage/async-storage
+npm install formik yup
+npm install react-native-contacts
+
+# 3. تثبيت pods (iOS)
+npx pod-install
 ```
 
-## Step 2: Build and run your app
+---
 
-With Metro running, open a new terminal window/pane from the root of your React Native project, and use one of the following commands to build and run your Android or iOS app:
+## ⚙️ إعداد الصلاحيات
 
-### Android
+### Android (`android/app/src/main/AndroidManifest.xml`)
 
-```sh
-# Using npm
-npm run android
-
-# OR using Yarn
-yarn android
+```xml
+<uses-permission android:name="android.permission.READ_CONTACTS" />
 ```
 
-### iOS
+### iOS (`ios/ContactFavouritesApp/Info.plist`)
 
-For iOS, remember to install CocoaPods dependencies (this only needs to be run on first clone or after updating native deps).
-
-The first time you create a new project, run the Ruby bundler to install CocoaPods itself:
-
-```sh
-bundle install
+```xml
+<key>NSContactsUsageDescription</key>
+<string>We need access to your contacts to display them.</string>
 ```
 
-Then, and every time you update your native dependencies, run:
+---
 
-```sh
-bundle exec pod install
+## ▶️ التشغيل
+
+```bash
+# Android
+npx react-native run-android
+
+# iOS
+npx react-native run-ios
 ```
 
-For more information, please visit [CocoaPods Getting Started guide](https://guides.cocoapods.org/using/getting-started.html).
+---
 
-```sh
-# Using npm
-npm run ios
+## 📝 المتطلبات
 
-# OR using Yarn
-yarn ios
+- Node.js 16+
+- React Native CLI
+- Xcode (لـ macOS + iOS)
+- Android Studio
+
+---
+
+## 📄 مثال على الطلب إلى Genderize API
+
+```ts
+const res = await fetch(`https://api.genderize.io/?name=John`);
+const data = await res.json();
+console.log(data.gender); // male / female / null
 ```
 
-If everything is set up correctly, you should see your new app running in the Android Emulator, iOS Simulator, or your connected device.
+---
 
-This is one way to run your app — you can also build it directly from Android Studio or Xcode.
+## 📚 ملفات المشروع
 
-## Step 3: Modify your app
+```
+src/
+├── components/          # مكونات الشاشة (ContactCard, Modal)
+├── screens/             # HomeScreen الرئيسية
+├── redux/               # Redux Slice
+├── store/               # إعداد Store و Persist
+├── types/               # (اختياري) أنواع مخصصة
+```
 
-Now that you have successfully run the app, let's make changes!
+---
 
-Open `App.tsx` in your text editor of choice and make some changes. When you save, your app will automatically update and reflect these changes — this is powered by [Fast Refresh](https://reactnative.dev/docs/fast-refresh).
+## 🏁 جاهز للتجربة!
 
-When you want to forcefully reload, for example to reset the state of your app, you can perform a full reload:
+### ✅ الخطوات التي تم تنفيذها:
 
-- **Android**: Press the <kbd>R</kbd> key twice or select **"Reload"** from the **Dev Menu**, accessed via <kbd>Ctrl</kbd> + <kbd>M</kbd> (Windows/Linux) or <kbd>Cmd ⌘</kbd> + <kbd>M</kbd> (macOS).
-- **iOS**: Press <kbd>R</kbd> in iOS Simulator.
-
-## Congratulations! :tada:
-
-You've successfully run and modified your React Native App. :partying_face:
-
-### Now what?
-
-- If you want to add this new React Native code to an existing application, check out the [Integration guide](https://reactnative.dev/docs/integration-with-existing-apps).
-- If you're curious to learn more about React Native, check out the [docs](https://reactnative.dev/docs/getting-started).
-
-# Troubleshooting
-
-If you're having issues getting the above steps to work, see the [Troubleshooting](https://reactnative.dev/docs/troubleshooting) page.
-
-# Learn More
-
-To learn more about React Native, take a look at the following resources:
-
-- [React Native Website](https://reactnative.dev) - learn more about React Native.
-- [Getting Started](https://reactnative.dev/docs/environment-setup) - an **overview** of React Native and how setup your environment.
-- [Learn the Basics](https://reactnative.dev/docs/getting-started) - a **guided tour** of the React Native **basics**.
-- [Blog](https://reactnative.dev/blog) - read the latest official React Native **Blog** posts.
-- [`@facebook/react-native`](https://github.com/facebook/react-native) - the Open Source; GitHub **repository** for React Native.
+- [x] قراءة جهات الاتصال
+- [x] تحديد جهة كمفضلة
+- [x] إدخال رسالة مخصصة والتحقق منها
+- [x] استخدام Formik للتحقق من الصحة
+- [x] حفظ البيانات باستخدام Redux Persist
+- [x] استخدام API خارجي للحصول على الجنس
